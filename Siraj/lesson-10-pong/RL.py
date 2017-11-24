@@ -6,7 +6,7 @@ import random
 from collections import deque #datastructure
 
 #print all the nitty gritty details (slows down performance)
-VERBOSE_MODE = False
+VERBOSE = False
 
 #define hyperperameters
 ACTIONS = 3 #up down or stay
@@ -169,10 +169,11 @@ def trainGraph(inp, out, sess):
         t = t+1
 
         #print our where wer are after saving where we are
-        if t % 10000 == 0:
-            saver.save(sess, './' + 'pong' + '-dqn', global_step = t)
+        if (VERBOSE):
+            if t % 10000 == 0:
+                saver.save(sess, './' + 'pong' + '-dqn', global_step = t)
 
-        print("TIMESTEP", t, "/ EPSILON", epsilon, "/ ACTION", maxIndex, "/ REWARD", reward_t, "/ Q_MAX %e" % np.max(out_t))
+            print("TIMESTEP", t, "/ EPSILON", epsilon, "/ ACTION", maxIndex, "/ REWARD", reward_t, "/ Q_MAX %e" % np.max(out_t))
         
 def main() :
     #create session

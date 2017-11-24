@@ -3,6 +3,8 @@
 import pygame
 import random
 
+VERBOSE = False #Prints the details
+
 #DQN. CNN reads in pixel data. 
 #reinforcement learning. trial and error.
 #maximize action based on reward
@@ -67,26 +69,31 @@ def updateBall(paddle1Ypos, paddle2Ypos, ballXpos, ballYpos, ballXDirection, bal
     #if the ball hits the left side, then switch direction
     if (ballXpos <= PADDLE_BUFFER + PADDLE_WIDTH and ballYpos + BALL_HEIGHT >= paddle1Ypos and ballYpos - BALL_HEIGHT <= paddle1Ypos + PADDLE_HEIGHT):
         ballXDirection = 1
+    #past it
     elif (ballXpos <= 0):
         ballXDirection = 1
         score = -1
         return [score, paddle1Ypos, paddle2Ypos, ballXpos, ballYpos, ballXDirection, ballYDirection]
     
+    #check if hits other side
     if (ballXpos >= WINDOW_WIDTH - PADDLE_WIDTH - PADDLE_BUFFER and ballYpos + BALL_HEIGHT >= paddle2Ypos and ballYpos - BALL_HEIGHT <= paddle2Ypos + PADDLE_HEIGHT):
         ballXDirection = -1
+    #past it
     elif (ballXpos >= WINDOW_WIDTH - BALL_WIDTH):
         ballXDirection = -1
         score = 1
         return [score, paddle1Ypos, paddle2Ypos, ballXpos, ballYpos, ballXDirection, ballYDirection]
     
     #ball hitting top
+    #move down
     if (ballYpos <= 0):
         ballYpos = 0
         ballYDirection = 1
+    #if hits bottom, move up
     elif (ballYpos >= WINDOW_HEIGHT - BALL_HEIGHT):
         ballYpos = WINDOW_HEIGHT - BALL_HEIGHT
         ballYDirection = -1
-        return [score, paddle1Ypos, paddle2Ypos, ballXpos, ballYpos, ballXDirection, ballYDirection]
+    return [score, paddle1Ypos, paddle2Ypos, ballXpos, ballYpos, ballXDirection, ballYDirection]
 
 def updatePaddle1(action, paddle1Ypos):
     #if move up
@@ -176,7 +183,8 @@ class PongGame:
         pygame.display.flip()
         
         self.tally += score
-        
+        if (VERBOSE):
+            print('Tally is ' + str(self.tally))
         #return the screen data
         return [score, image_data]
     
