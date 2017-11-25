@@ -168,10 +168,12 @@ def trainGraph(inp, out, sess):
         inp_t = inp_t1
         t = t+1
 
-        #print our where wer are after saving where we are
+        #save where we are
+        if t % 10000 == 0:
+            saver.save(sess, './' + 'pong' + '-dqn', global_step = t)
+            
+        #print our where were
         if (VERBOSE):
-            if t % 10000 == 0:
-                saver.save(sess, './' + 'pong' + '-dqn', global_step = t)
 
             print("TIMESTEP", t, "/ EPSILON", epsilon, "/ ACTION", maxIndex, "/ REWARD", reward_t, "/ Q_MAX %e" % np.max(out_t))
         
