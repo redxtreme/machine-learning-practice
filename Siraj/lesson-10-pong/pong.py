@@ -4,7 +4,7 @@ import pygame
 import random
 
 #print all the nitty gritty details (slows down performance)
-VERBOSE = False
+VERBOSE = True
 
 #DQN. CNN reads in pixel data. 
 #reinforcement learning. trial and error.

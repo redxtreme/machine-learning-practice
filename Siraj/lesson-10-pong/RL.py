@@ -6,7 +6,7 @@ import random
 from collections import deque #datastructure
 
 #print all the nitty gritty details (slows down performance)
-VERBOSE = False
+VERBOSE = True
 
 #define hyperperameters
 ACTIONS = 3 #up down or stay
